@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const cors = require('cors')
 const rateLimit = require('express-rate-limit')
 require('dotenv').config()
+process.env.ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@bhoneenterprises.com'
+process.env.ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Admin@Bhone2024'
 
 const app = express()
 
