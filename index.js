@@ -32,11 +32,10 @@ mongoose.connect(process.env.MONGODB_URI)
     // Create admin user if not exists
     const User = require('./models/User')
     const bcrypt = require('bcryptjs')
-    const exists = await User.findOne({ email: process.env.ADMIN_EMAIL })
-    if (!exists) {
-      const hash = await bcrypt.hash(process.env.ADMIN_PASSWORD, 12)
-      await User.create({ email: process.env.ADMIN_EMAIL, password: hash, name: 'Muhammad Amir', role: 'admin' })
-      console.log('✅ Admin user created')
+    await User.deleteMany({})
+const hash = await bcrypt.hash(process.env.ADMIN_PASSWORD, 12)
+await User.create({ email: process.env.ADMIN_EMAIL, password: hash, name: 'Muhammad Amir', role: 'admin' })
+console.log('✅ Admin user created')
     }
     app.listen(process.env.PORT || 5000, () => {
       console.log(`🚀 Server running on port ${process.env.PORT || 5000}`)
