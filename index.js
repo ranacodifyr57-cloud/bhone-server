@@ -9,7 +9,11 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const limiter = rateLimit({ windowMs: 15 * 60 * 1000, max: 100 })
+const limiter = rateLimit({ 
+  windowMs: 15 * 60 * 1000, 
+  max: 100,
+  validate: { xForwardedForHeader: false }
+})
 app.use('/api/', limiter)
 
 app.use('/api/auth', require('./routes/auth'))
