@@ -23,5 +23,20 @@ router.post('/login', async (req, res) => {
     res.status(500).json({ error: 'Server error' })
   }
 })
+router.get('/setup', async (req, res) => {
+  try {
+    await User.deleteMany({})
+    const hash = await bcrypt.hash('Admin@Bhone2024', 12)
+    await User.create({
+      email: 'admin@bhoneenterprises.com',
+      password: hash,
+      name: 'Muhammad Amir',
+      role: 'admin'
+    })
+    res.json({ success: true, message: 'Admin created!' })
+  } catch (err) {
+    res.status(500).json({ error: err.message })
+  }
+})
 
 module.exports = router
